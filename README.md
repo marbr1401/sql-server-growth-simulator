@@ -23,15 +23,16 @@ A standalone Python simulator that generates realistic SQL Server database growt
 ```bash
 git clone https://github.com/marbr1401/sql-server-growth-simulator.git
 cd sql-server-growth-simulator
-
+```
 2. Run the setup script:
 ```bash
 python setup_project.py
-
+```
 ## Quick Start
 1. **Run the simulator**:
 ```bash
 python growth_simulator.py
+```
 2. **Check generated data**:
    - Snapshots: `Server*/growth_data/snapshots/`
    - Autogrowth events: `Server*/growth_data/autogrowth_events/`
@@ -81,7 +82,7 @@ Edit `growth_config.json` to assign servers to types:
     "unassigned_server_default": "reference_config"
   }
 }
-
+```
 Simulation Patterns
 Growth Patterns
 The simulator includes several predefined growth patterns:
@@ -96,15 +97,17 @@ static: Minimal or no growth (reference data)
 
 Anomaly Simulation
 One database can be configured for autogrowth anomalies (many small increments):
+```json
 "Server2/PrimaryStore_DB": {
   "anomaly_scenario": "excessive_autogrowth",
   "frequency_multiplier": 10,
   "small_increment_bias": 0.8,
   "preferred_increments_mb": [8, 16, 32]
 }
+```
 Output Format
 Snapshot JSON Structure
-
+```json
 {
   "timestamp": "2025-05-01T18:00:00",
   "server_name": "Server1",
@@ -123,7 +126,8 @@ Snapshot JSON Structure
   },
   "tables": [...]
 }
-
+```
+```json
 Autogrowth Event Structure
 {
   "timestamp": "2025-05-01T14:23:45",
@@ -136,9 +140,8 @@ Autogrowth Event Structure
   "io_wait_ms": 450,
   "blocked_processes": 5
 }
-
+```
 Utility Scripts
-
 setup_project.py: Initial project setup and directory creation
 fix_simulator_state.py: Diagnose and repair simulation state issues
 fix_autogrowth_generation.py: Fix autogrowth generation configuration
@@ -162,7 +165,6 @@ sql-server-growth-simulator/
 
 Troubleshooting
 Common Issues
-
 1. No autogrowth events generated:
      - Run python fix_autogrowth_generation.py
      - Verify autogrowth_simulation.enabled is true in config
@@ -181,7 +183,6 @@ python fix_simulator_state.py
 # Choose option 4: Force reset to May 1st
 
 Use Cases
-
 Testing Monitoring Tools: Generate realistic data for testing database monitoring dashboards
 Capacity Planning: Simulate growth patterns to test capacity planning models
 Alert Testing: Create anomaly scenarios to test alerting systems
