@@ -141,13 +141,14 @@ Autogrowth Event Structure
   "blocked_processes": 5
 }
 ```
-Utility Scripts
-setup_project.py: Initial project setup and directory creation
-fix_simulator_state.py: Diagnose and repair simulation state issues
-fix_autogrowth_generation.py: Fix autogrowth generation configuration
-unified_database_manager.py: Synchronize database names across simulators
+## Utility Scripts
 
-Directory Structure
+- **setup_project.py**: Initial project setup and directory creation
+- **fix_simulator_state.py**: Diagnose and repair simulation state issues
+- **fix_autogrowth_generation.py**: Fix autogrowth generation configuration
+- **unified_database_manager.py**: Synchronize database names across simulators
+
+## Directory Structure
 sql-server-growth-simulator/
 ├── growth_simulator.py          # Main simulator
 ├── growth_utils.py              # Core utility functions
@@ -158,10 +159,10 @@ sql-server-growth-simulator/
 ├── data/
 │   └── fake_database_names.json # Database names
 └── Server*/                     # Generated server directories
-    └── growth_data/
-        ├── snapshots/           # JSON snapshots
-        ├── autogrowth_events/   # Autogrowth events
-        └── server_state.json    # Persistent state
+└── growth_data/
+├── snapshots/           # JSON snapshots
+├── autogrowth_events/   # Autogrowth events
+└── server_state.json    # Persistent state
 
 Troubleshooting
 Common Issues
