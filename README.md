@@ -105,8 +105,8 @@ One database can be configured for autogrowth anomalies (many small increments):
   "preferred_increments_mb": [8, 16, 32]
 }
 ```
-Output Format
-Snapshot JSON Structure
+## Output Format
+### Snapshot JSON Structure
 ```json
 {
   "timestamp": "2025-05-01T18:00:00",
@@ -127,8 +127,10 @@ Snapshot JSON Structure
   "tables": [...]
 }
 ```
+
+### Autogrowth Event Structure
 ```json
-### Autogrowth Event Structure{
+{
   "timestamp": "2025-05-01T14:23:45",
   "file_type": "data",
   "previous_mb": 10240,
