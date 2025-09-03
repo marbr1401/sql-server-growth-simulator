@@ -182,18 +182,26 @@ To start fresh from May 1, 2025:
 python fix_simulator_state.py
 # Choose option 4: Force reset to May 1st
 
-Use Cases
-Testing Monitoring Tools: Generate realistic data for testing database monitoring dashboards
-Capacity Planning: Simulate growth patterns to test capacity planning models
-Alert Testing: Create anomaly scenarios to test alerting systems
-Performance Testing: Generate I/O patterns for performance testing tools
-Training: Create realistic scenarios for DBA training
+## Use Cases
 
-License
+- **Testing Monitoring Tools**: Generate realistic data for testing database monitoring dashboards
+- **Capacity Planning**: Simulate growth patterns to test capacity planning models
+- **Alert Testing**: Create anomaly scenarios to test alerting systems
+- **Performance Testing**: Generate I/O patterns for performance testing tools
+- **Training**: Create realistic scenarios for DBA training
+
+## License
+
 MIT License - See LICENSE file for details
-Contributing
+
+## Contributing
+
 Contributions are welcome! Please feel free to submit pull requests.
-Author
+
+## Author
+
 marbr1401
-Acknowledgments
+
+## Acknowledgments
+
 This simulator was created as a standalone tool for generating realistic SQL Server database growth patterns for testing and development purposes.
