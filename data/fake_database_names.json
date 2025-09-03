@@ -1,0 +1,38 @@
+{
+  "oltp_production": [
+    "PrimaryStore_DB",
+    "CustomerCore_DB", 
+    "OrderProcessing_DB",
+    "InventoryMgmt_DB",
+    "PaymentGateway_DB",
+    "UserAuthentication_DB",
+    "TransactionLog_DB",
+    "ProductCatalog_DB",
+    "ShoppingCart_DB",
+    "CustomerService_DB"
+  ],
+  "reporting_analytics": [
+    "ReportWarehouse_DB",
+    "BusinessMetrics_DB",
+    "DataMart_Archive",
+    "AnalyticsEngine_DB",
+    "KPIDashboard_DB",
+    "ExecutiveReports_DB",
+    "FinancialReporting_DB",
+    "OperationalBI_DB",
+    "ComplianceReports_DB",
+    "MarketingAnalytics_DB"
+  ],
+  "reference_config": [
+    "ConfigRegistry_DB",
+    "Dictionary_Lookup",
+    "SystemCatalog_DB",
+    "ReferenceData_DB",
+    "LookupTables_DB",
+    "MasterData_Repository",
+    "SystemConfiguration_DB",
+    "GlobalSettings_DB",
+    "BusinessRules_DB",
+    "ValidationEngine_DB"
+  ]
+}

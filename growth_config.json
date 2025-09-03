@@ -1,0 +1,135 @@
+{
+  "server_integration": {
+    "read_from_error_log_config": true,
+    "error_log_config_path": "config.json",
+    "server_type_assignments": {
+      "servers_1_2": "oltp_production",
+      "servers_3_3": "reporting_analytics"
+    },
+    "default_server_count": 3,
+    "unassigned_server_default": "reference_config",
+    "fallback_behavior": "use_default_if_missing"
+  },
+  "simulation_mode": {
+    "type": "fixed_12hour_periods",
+    "description": "Each execution simulates exactly 12 hours of SQL Server activity",
+    "simulated_hours_per_execution": 12.0,
+    "schedule_start_date": "2025-05-01",
+    "execution_times": ["06:00", "18:00"],
+    "timezone": "UTC+03:00",
+    "realistic_metrics_collection": true
+  },
+  "execution_schedule": {
+    "frequency": "twice_daily",
+    "execution_times": ["06:00", "18:00"],
+    "start_date": "2025-05-01",
+    "description": "Generates data for 12-hour periods: 6AM-6PM and 6PM-6AM",
+    "timezone": "UTC+03:00"
+  },
+  "database_configuration": {
+    "oltp_production": {
+      "databases_per_server": 3,
+      "database_names": [
+        "PrimaryStore_DB",
+        "CustomerCore_DB",
+        "OrderProcessing_DB"
+      ],
+      "table_count_range": [15, 25],
+      "size_multiplier_range": [1.0, 1.5],
+      "activity_multiplier_range": [1.2, 1.8]
+    },
+    "reporting_analytics": {
+      "databases_per_server": 3,
+      "database_names": [
+        "DataWarehouse_DB",
+        "Analytics_DB",
+        "Reporting_DB"
+      ],
+      "table_count_range": [8, 15],
+      "size_multiplier_range": [0.8, 1.2],
+      "activity_multiplier_range": [0.6, 1.0]
+    },
+    "reference_config": {
+      "databases_per_server": 2,
+      "database_names": [
+        "ReferenceData_DB",
+        "ConfigStore_DB"
+      ],
+      "table_count_range": [5, 10],
+      "size_multiplier_range": [0.1, 0.3],
+      "activity_multiplier_range": [0.2, 0.5]
+    }
+  },
+  "execution_settings": {
+    "time_acceleration_factor": 1,
+    "baseline_variance_percent": 15,
+    "environment_scaling": "production",
+    "retention_cleanup_variance": 20,
+    "fixed_simulation_period": true,
+    "twelve_hour_metrics_mode": true
+  },
+  "autogrowth_simulation": {
+    "enabled": true,
+    "correlation_with_writes": true,
+    "simulation_mode": "fixed_12hour_periods",
+    "database_specific_config": {
+      "Server2/CustomerService_DB": {
+        "anomaly_scenario": "excessive_autogrowth",
+        "frequency_multiplier": 15,
+        "small_increment_bias": 0.9,
+        "preferred_increments_mb": [4, 8, 16, 32],
+        "description": "Simulates severely misconfigured autogrowth causing frequent tiny increments"
+      }
+    },
+    "normal_patterns": {
+      "data_file_increments_mb": [64, 128, 256, 512, 1024],
+      "log_file_increments_mb": [32, 64, 128, 256],
+      "write_correlation_threshold": 25000000,
+      "events_per_12hour_normal": [8, 25],
+      "events_per_12hour_anomaly": [120, 200]
+    },
+    "twelve_hour_simulation": {
+      "normal_events_per_12hour": [8, 25],
+      "anomaly_events_per_12hour": [120, 200],
+      "event_distribution_variance": 0.2
+    }
+  },
+  "output_configuration": {
+    "format": "json",
+    "create_snapshots": true,
+    "create_trends": false,
+    "retention_days": 90,
+    "compression": false,
+    "include_server_type_in_output": true,
+    "snapshot_compression": false,
+    "trend_aggregation": true,
+    "include_simulation_metadata": true
+  },
+  "simulation_profiles": {
+    "description": "Different simulation intensity profiles for various use cases",
+    "realistic_production": {
+      "description": "Realistic production database growth patterns",
+      "baseline_scale_factor": 1.0,
+      "autogrowth_scale_factor": 1.0,
+      "retention_issue_scale_factor": 1.0
+    },
+    "enterprise_heavy": {
+      "description": "Heavy enterprise workload with more growth",
+      "baseline_scale_factor": 3.0,
+      "autogrowth_scale_factor": 2.5,
+      "retention_issue_scale_factor": 1.5
+    },
+    "demo_extreme": {
+      "description": "Extreme growth for demonstration purposes",
+      "baseline_scale_factor": 8.0,
+      "autogrowth_scale_factor": 5.0,
+      "retention_issue_scale_factor": 3.0
+    },
+    "development_light": {
+      "description": "Light development environment simulation",
+      "baseline_scale_factor": 0.3,
+      "autogrowth_scale_factor": 0.5,
+      "retention_issue_scale_factor": 0.7
+    }
+  }
+}

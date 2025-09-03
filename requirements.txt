@@ -1,0 +1,15 @@
+# SQL Server Database Growth Simulator - Dependencies
+# This simulator primarily uses Python standard library modules
+
+# No external dependencies required for core functionality
+# The simulator uses only Python 3.7+ standard library:
+# - json (configuration and data files)
+# - logging (application logging)
+# - random (data generation)
+# - datetime, timedelta (time simulation)
+# - pathlib (file system operations)
+# - typing (type hints)
+
+# Optional: For development and testing
+# pytest>=7.0.0
+# pytest-cov>=4.0.0

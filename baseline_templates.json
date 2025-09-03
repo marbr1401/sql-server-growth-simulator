@@ -1,0 +1,217 @@
+{
+  "baseline_templates": {
+    "oltp_production": {
+      "template_name": "High-Volume OLTP Production",
+      "description": "Production OLTP servers with heavy transactional workloads - 12 hour simulation",
+      "baseline_metrics": {
+        "daily_transactions_millions": 2.5,
+        "peak_concurrent_users": 850,
+        "average_cpu_percent": 65,
+        "average_memory_percent": 75,
+        "daily_io_operations_millions": 12.5,
+        "twelve_hour_growth_gb_range": [
+          6.0,
+          24.0
+        ],
+        "daily_growth_gb_range": [
+          12.0,
+          48.0
+        ]
+      },
+      "io_baselines": {
+        "reads_per_second_baseline": 1200,
+        "writes_per_second_baseline": 600,
+        "peak_hour_multiplier": 2.8,
+        "off_peak_multiplier": 0.4,
+        "weekend_multiplier": 0.6
+      },
+      "table_growth_patterns": {
+        "no_retention_percent": 20,
+        "good_cleanup_percent": 50,
+        "insufficient_cleanup_percent": 30
+      },
+      "autogrowth_patterns": {
+        "normal_events_per_12hour": [
+          24,
+          60
+        ],
+        "data_file_event_ratio": 0.7,
+        "preferred_increments_mb": [
+          64,
+          128,
+          256,
+          512
+        ]
+      }
+    },
+    "reporting_analytics": {
+      "template_name": "Medium-Load Reporting & Analytics",
+      "description": "Reporting servers with periodic batch loads - 12 hour simulation",
+      "baseline_metrics": {
+        "daily_batch_jobs": 12,
+        "peak_concurrent_users": 150,
+        "average_cpu_percent": 40,
+        "average_memory_percent": 55,
+        "daily_io_operations_millions": 3.2,
+        "twelve_hour_growth_gb_range": [
+          2.4,
+          12.0
+        ],
+        "daily_growth_gb_range": [
+          4.8,
+          24.0
+        ]
+      },
+      "io_baselines": {
+        "reads_per_second_baseline": 300,
+        "writes_per_second_baseline": 50,
+        "batch_hour_multiplier": 4.0,
+        "normal_hour_multiplier": 0.8,
+        "weekend_multiplier": 0.3
+      },
+      "table_growth_patterns": {
+        "no_retention_percent": 15,
+        "good_cleanup_percent": 65,
+        "insufficient_cleanup_percent": 20
+      },
+      "autogrowth_patterns": {
+        "normal_events_per_12hour": [
+          12,
+          36
+        ],
+        "data_file_event_ratio": 0.8,
+        "preferred_increments_mb": [
+          128,
+          256,
+          512,
+          1024
+        ]
+      }
+    },
+    "reference_config": {
+      "template_name": "Light-Load Reference & Configuration",
+      "description": "Dictionary and configuration servers - 12 hour simulation",
+      "baseline_metrics": {
+        "daily_config_changes": 5,
+        "peak_concurrent_users": 25,
+        "average_cpu_percent": 15,
+        "average_memory_percent": 30,
+        "daily_io_operations_thousands": 500,
+        "twelve_hour_growth_mb_range": [
+          12,
+          120
+        ],
+        "daily_growth_mb_range": [
+          24,
+          240
+        ]
+      },
+      "io_baselines": {
+        "reads_per_second_baseline": 1500,
+        "writes_per_second_baseline": 2,
+        "peak_hour_multiplier": 3.0,
+        "off_peak_multiplier": 0.8,
+        "weekend_multiplier": 1.5
+      },
+      "table_growth_patterns": {
+        "no_cleanup_required": true,
+        "minimal_growth": true,
+        "read_heavy_ratio": 1000
+      },
+      "autogrowth_patterns": {
+        "normal_events_per_12hour": [
+          0,
+          12
+        ],
+        "data_file_event_ratio": 0.9,
+        "preferred_increments_mb": [
+          32,
+          64,
+          128
+        ]
+      }
+    }
+  },
+  "simulation_settings": {
+    "fixed_12hour_mode": true,
+    "simulation_period_hours": 12.0,
+    "realistic_metrics_collection": true,
+    "time_progression": "incremental_state_based",
+    "schedule_times": [
+      "06:00",
+      "18:00"
+    ],
+    "start_date": "2025-05-01"
+  },
+  "environment_scaling": {
+    "development": {
+      "scale_factor": 0.1,
+      "description": "10% of production baseline"
+    },
+    "staging": {
+      "scale_factor": 0.3,
+      "description": "30% of production baseline"
+    },
+    "production": {
+      "scale_factor": 1.0,
+      "description": "Full production baseline"
+    },
+    "load_testing": {
+      "scale_factor": 1.5,
+      "description": "150% of production baseline for load testing"
+    }
+  },
+  "autogrowth_simulation": {
+    "enabled": true,
+    "correlation_with_writes": true,
+    "simulation_mode": "fixed_12hour_periods",
+    "database_specific_config": {
+      "Server2/PrimaryStore_DB": {
+        "anomaly_scenario": "excessive_autogrowth",
+        "frequency_multiplier": 10,
+        "small_increment_bias": 0.8,
+        "preferred_increments_mb": [
+          8,
+          16,
+          32
+        ],
+        "description": "Simulates misconfigured autogrowth causing frequent small increments"
+      }
+    },
+    "normal_patterns": {
+      "data_file_increments_mb": [
+        64,
+        128,
+        256,
+        512,
+        1024
+      ],
+      "log_file_increments_mb": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "write_correlation_threshold": 12000000,
+      "events_per_12hour_normal": [
+        24,
+        60
+      ],
+      "events_per_12hour_anomaly": [
+        240,
+        360
+      ]
+    },
+    "twelve_hour_simulation": {
+      "normal_events_per_12hour": [
+        24,
+        60
+      ],
+      "anomaly_events_per_12hour": [
+        240,
+        360
+      ],
+      "event_distribution_variance": 0.2
+    }
+  }
+}

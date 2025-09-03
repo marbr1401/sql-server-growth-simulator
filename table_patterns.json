@@ -1,0 +1,140 @@
+{
+  "oltp_table_patterns": {
+    "high_growth_tables": {
+      "percentage": 25,
+      "description": "Tables with high daily activity",
+      "table_names": [
+        "AuditLog", "TransactionHistory", "ErrorLog", "UserActivityLog", 
+        "SystemEvents", "SecurityLog", "PerformanceLog", "AccessLog"
+      ],
+      "operational_characteristics": {
+        "daily_growth_rows_range": [25000, 100000],
+        "avg_bytes_per_row_range": [256, 512],
+        "typical_cleanup_schedules": ["never", "quarterly", "annually"],
+        "common_retention_days": [0, 90, 365, "unlimited"]
+      }
+    },
+    "moderate_growth_tables": {
+      "percentage": 50,
+      "description": "Tables with moderate daily activity",
+      "table_names": [
+        "SessionData", "TempTransactions", "ProcessingQueue", "NotificationLog",
+        "TempFiles", "CacheEntries", "WorkflowSteps", "ValidationResults"
+      ],
+      "operational_characteristics": {
+        "daily_growth_rows_range": [5000, 50000],
+        "avg_bytes_per_row_range": [128, 256],
+        "typical_cleanup_schedules": ["daily", "weekly", "monthly"],
+        "common_retention_days": [7, 30, 90]
+      }
+    },
+    "low_growth_tables": {
+      "percentage": 25,
+      "description": "Tables with low to moderate activity",
+      "table_names": [
+        "CustomerInteractions", "OrderProcessingLog", "SystemEvents", 
+        "PerformanceMetrics", "IntegrationLog", "BusinessEvents"
+      ],
+      "operational_characteristics": {
+        "daily_growth_rows_range": [1000, 25000],
+        "avg_bytes_per_row_range": [128, 384],
+        "typical_cleanup_schedules": ["weekly", "monthly", "quarterly"],
+        "common_retention_days": [30, 90, 180, 365]
+      }
+    }
+  },
+  "reporting_table_patterns": {
+    "historical_tables": {
+      "percentage": 20,
+      "description": "Long-term historical data storage",
+      "table_names": [
+        "HistoricalSales", "LegacyReports", "ComplianceArchive", "AuditTrail"
+      ],
+      "operational_characteristics": {
+        "daily_growth_rows_range": [2500, 10000],
+        "avg_bytes_per_row_range": [256, 512],
+        "typical_cleanup_schedules": ["never", "annually", "5years"],
+        "common_retention_days": ["unlimited", 1825, 3650]
+      }
+    },
+    "processing_tables": {
+      "percentage": 60,
+      "description": "ETL and batch processing workspaces",
+      "table_names": [
+        "DailyMetrics", "TempAnalysis", "StagingTables", "ProcessingTemp",
+        "ETLWorkspace", "DataValidation", "ReportCache"
+      ],
+      "operational_characteristics": {
+        "daily_growth_rows_range": [500, 5000],
+        "avg_bytes_per_row_range": [128, 256],
+        "typical_cleanup_schedules": ["daily", "weekly", "monthly"],
+        "common_retention_days": [7, 30, 90, 180]
+      }
+    },
+    "archive_tables": {
+      "percentage": 20,
+      "description": "Archive and detailed reporting tables",
+      "table_names": [
+        "DetailedReports", "ProcessingLogs", "AnalyticsWorkspace", "ETLLog"
+      ],
+      "operational_characteristics": {
+        "daily_growth_rows_range": [1000, 7500],
+        "avg_bytes_per_row_range": [256, 384],
+        "typical_cleanup_schedules": ["monthly", "quarterly", "annually"],
+        "common_retention_days": [90, 180, 365, 730]
+      }
+    }
+  },
+  "reference_table_patterns": {
+    "lookup_tables": {
+      "percentage": 80,
+      "description": "Reference lookup tables",
+      "table_names": [
+        "Countries", "States", "Categories", "StatusCodes", "ErrorCodes", 
+        "CurrencyCodes", "TimeZones", "ProductTypes"
+      ],
+      "operational_characteristics": {
+        "monthly_growth_rows_range": [0, 25],
+        "avg_bytes_per_row_range": [32, 64],
+        "typical_cleanup_schedules": ["never"],
+        "common_retention_days": ["unlimited"]
+      }
+    },
+    "configuration_tables": {
+      "percentage": 20,
+      "description": "Configuration and system parameter tables",
+      "table_names": [
+        "AppSettings", "FeatureFlags", "SystemParams", "ConnectionStrings",
+        "ApiKeys", "BusinessRules", "ValidationRules"
+      ],
+      "operational_characteristics": {
+        "monthly_growth_rows_range": [0, 10],
+        "avg_bytes_per_row_range": [64, 128],
+        "typical_cleanup_schedules": ["never", "annually"],
+        "common_retention_days": ["unlimited", 365]
+      }
+    }
+  },
+  "cleanup_job_templates": {
+    "daily_cleanup": {
+      "cron_schedule": "0 2 * * *",
+      "typical_execution_time_minutes": [5, 30],
+      "success_rate_percent": 95
+    },
+    "weekly_cleanup": {
+      "cron_schedule": "0 2 * * 0",
+      "typical_execution_time_minutes": [15, 120],
+      "success_rate_percent": 92
+    },
+    "monthly_cleanup": {
+      "cron_schedule": "0 2 1 * *",
+      "typical_execution_time_minutes": [30, 300],
+      "success_rate_percent": 88
+    },
+    "quarterly_cleanup": {
+      "cron_schedule": "0 2 1 1,4,7,10 *",
+      "typical_execution_time_minutes": [60, 600],
+      "success_rate_percent": 85
+    }
+  }
+}
