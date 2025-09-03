@@ -21,30 +21,24 @@ A standalone Python simulator that generates realistic SQL Server database growt
 
 1. Clone the repository:
 ```bash
-
 git clone https://github.com/marbr1401/sql-server-growth-simulator.git
 cd sql-server-growth-simulator
-
 
 2. Run the setup script:
 ```bash
 python setup_project.py
 
 ## Quick Start
-
 1. **Run the simulator**:
 ```bash
 python growth_simulator.py
-
 2. **Check generated data**:
    - Snapshots: `Server*/growth_data/snapshots/`
    - Autogrowth events: `Server*/growth_data/autogrowth_events/`
    - Server state: `Server*/growth_data/server_state.json`
 
 ## How It Works
-
 The simulator follows these steps each execution:
-
 1. **Load Configuration**: Reads server assignments and growth patterns from `growth_config.json`
 2. **Calculate Period**: Determines the next 12-hour period to simulate (day: 6AM-6PM or night: 6PM-6AM)
 3. **For Each Server**:
@@ -59,13 +53,9 @@ The simulator follows these steps each execution:
 5. **Persist State**: Update `server_state.json` for continuous progression
 
 Each run advances the simulation by 12 hours, maintaining realistic growth patterns over time.
-
 ## Configuration
-
 ### Server Types
-
 The simulator supports three server types with different growth characteristics:
-
 | Server Type | Databases | Tables per DB | Growth Pattern |
 |------------|-----------|---------------|----------------|
 | OLTP Production | 3 | 15-25 | Heavy transactional, retention issues |
@@ -73,16 +63,13 @@ The simulator supports three server types with different growth characteristics:
 | Reference/Config | 2 | 5-10 | Minimal growth, read-heavy |
 
 ### Key Configuration Files
-
 - **growth_config.json**: Main configuration for server assignments and simulation settings
 - **baseline_templates.json**: Defines baseline metrics for each server type
 - **table_patterns.json**: Table growth and cleanup patterns
 - **data/fake_database_names.json**: Database names for each server type
 
 ### Configuring Server Assignments
-
 Edit `growth_config.json` to assign servers to types:
-
 ```json
 {
   "server_integration": {
