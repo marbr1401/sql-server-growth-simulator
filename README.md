@@ -128,8 +128,7 @@ Snapshot JSON Structure
 }
 ```
 ```json
-Autogrowth Event Structure
-{
+### Autogrowth Event Structure{
   "timestamp": "2025-05-01T14:23:45",
   "file_type": "data",
   "previous_mb": 10240,
